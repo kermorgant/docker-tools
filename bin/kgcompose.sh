@@ -29,7 +29,7 @@ do
 key="$1"
 
 case $key in
-    up|build|logs|stop|bash|install|update)
+    up|build|logs|stop|bash|install|update|pull)
 	ACTION=$key
 	shift # past argument
 	;;
@@ -66,22 +66,21 @@ case "$ACTION" in
     build)
 	command="$cmdprefix build --pull $service"
 	;;
-
+    pull)
+        command="$cmdprefix pull $service"
+        ;;
     install)
 	command="$cmdprefix run --rm $service --install"
 	;;
-
     update)
 	command="$cmdprefix run --rm $service --update"
 	;;
     up)
 	command="$cmdprefix up -d $service"
 	;;
-
     stop)
 	command="$cmdprefix stop $service"
 	;;
-
     bash)
 	command="$cmdprefix exec $service /bin/bash"
 	;;
