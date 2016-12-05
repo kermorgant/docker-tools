@@ -11,7 +11,7 @@ hostname_resolv(){
         exit 1
     fi
 
-    exit 0
+    return 0
 }
 
 hostname_connectivity() {
@@ -26,6 +26,8 @@ hostname_connectivity() {
         echo "network connectivity to db is not ok"
         exit 2
     fi
+
+    return 0
 }
 
 db_initialize() {
@@ -42,6 +44,8 @@ db_initialize() {
     mysql -u root -p${DB_ROOT_PASSWORD} -h ${DB_HOST} -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%';"
 
     mysql -u root -p${DB_ROOT_PASSWORD} -h ${DB_HOST} -e "flush privileges;"
+
+    return 0
 }
 
 
@@ -56,6 +60,8 @@ auth_check() {
         echo "ERROR: authentication problem. Are DB_USER & DB_PASSWORD set ?"
         exit 3
     fi
+
+    return 0
 }
 
 existence_check() {
@@ -71,4 +77,5 @@ existence_check() {
         exit 4
     fi
 
+    return 0
 }
