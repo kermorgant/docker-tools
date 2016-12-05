@@ -86,7 +86,7 @@ case "$ACTION" in
 	command="$cmdprefix exec $service /bin/bash"
 	;;
     logs)
-	command="$cmdprefix logs /bin/bash"
+	command="$cmdprefix logs $service"
 	;;
 esac
 
