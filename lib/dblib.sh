@@ -93,10 +93,12 @@ global_check() {
     test $INIT_DB == "true" && db_initialize $DB_HOST $DB_ROOT_PASSWORD || exit $?
 
     type mysql 2>/dev/null
-    if [ $? -eq 0 ]
+    if [ $? == 0 ]
        then
-           auth_check $DB_HOST $DB_USER $DB_PASSWORD || exit $?
-           existence_check  $DB_HOST $DB_USER $DB_PASSWORD $DB_NAME || exit $?
+           auth_check $DB_HOST $DB_USER $DB_PASSWORD
+           test $? != 0 && exit $?
+           existence_check  $DB_HOST $DB_USER $DB_PASSWORD $DB_NAME
+           test $? != 0 && exit $?
     fi
 
     return 0
