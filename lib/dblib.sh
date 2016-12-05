@@ -67,7 +67,7 @@ auth_check() {
 existence_check() {
     DB_HOST=$1
     DB_USER=$2
-    DB_USER=$3
+    DB_PASSWORD=$3
 
     # check if database exists
     mysqlshow -h ${DB_HOST} --user=${DB_USER} --password=${DB_PASSWORD} ${DB_NAME} | grep -v Wildcard | grep -o ${DB_NAME}
