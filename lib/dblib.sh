@@ -82,10 +82,10 @@ existence_check() {
 }
 
 global_check() {
-    DB_HOST=$1
-    DB_USER=$2
-    DB_PASSWORD=$3
-    DB_NAME=$4
+    DB_HOST=${1:-'mysql'}
+    DB_USER=${2:-'user'}
+    DB_PASSWORD=${3:-'password'}
+    DB_NAME=${4:-'database'}
     INIT_DB=${5:-'false'}
 
     hostname_resolv $DB_HOST || exit $?
