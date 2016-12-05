@@ -91,8 +91,8 @@ global_check() {
     hostname_resolv $DB_HOST || exit $?
     hostname_connectivity $DB_HOST || exit $?
     test $INIT_DB == "true" && db_initialize $DB_HOST $DB_ROOT_PASSWORD || exit $?
-    auth_check $DB_HOST $DB_USER $DB_PASSWORD || exit $?
-    existence_check  $DB_HOST $DB_USER $DB_PASSWORD $DB_NAME || exit $?
+    type mysql && auth_check $DB_HOST $DB_USER $DB_PASSWORD || exit $?
+    type mysql && existence_check  $DB_HOST $DB_USER $DB_PASSWORD $DB_NAME || exit $?
 
     return 0
 }
