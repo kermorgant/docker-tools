@@ -68,6 +68,7 @@ existence_check() {
     DB_HOST=$1
     DB_USER=$2
     DB_PASSWORD=$3
+    DB_NAME=$4
 
     # check if database exists
     mysqlshow -h ${DB_HOST} --user=${DB_USER} --password=${DB_PASSWORD} ${DB_NAME} | grep -v Wildcard | grep -o ${DB_NAME}
@@ -90,7 +91,7 @@ global_check() {
     hostname_connectivity $DB_HOST || exit $?
     test $INIT_DB == "true" && db_initialize $DB_HOST $DB_ROOT_PASSWORD || exit $?
     auth_check $DB_HOST $DB_USER $DB_PASSWORD || exit $?
-    existence_check  $DB_HOST $DB_USER $DB_PASSWORD  || exit $?
+    existence_check  $DB_HOST $DB_USER $DB_PASSWORD $DB_NAME || exit $?
 
     return 0
 }
