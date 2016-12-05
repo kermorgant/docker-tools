@@ -86,7 +86,7 @@ global_check() {
     DB_USER=$2
     DB_PASSWORD=$3
     DB_NAME=$4
-    INIT_DB=$5
+    INIT_DB=${5:-'false'}
 
     hostname_resolv $DB_HOST || exit $?
     hostname_connectivity $DB_HOST || exit $?
