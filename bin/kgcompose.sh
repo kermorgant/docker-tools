@@ -29,33 +29,9 @@ do
 key="$1"
 
 case $key in
-    up)
-	ACTION="up"
+    up|build|log|stop|bash|install|update)
+	ACTION=$key
 	shift # past argument
-	;;
-    build)
-	ACTION="build"
-	shift # past argument
-	;;
-    log)
-        ACTION="log"
-        shift
-        ;;
-    stop)
-	ACTION="stop"
-	shift # past argument
-	;;
-    bash)
-	ACTION="bash"
-	shift # past argument
-	;;
-    install)
-	ACTION="install"
-	shift
-	;;
-    update)
-	ACTION="update"
-	shift
 	;;
     --dbreset)
 	SUBACTION="--dbreset"
@@ -108,6 +84,9 @@ case "$ACTION" in
 
     bash)
 	command="$cmdprefix exec $service /bin/bash"
+	;;
+    log)
+	command="$cmdprefix log /bin/bash"
 	;;
 esac
 
