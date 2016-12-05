@@ -8,7 +8,7 @@ hostname_resolv(){
     then
         echo "ERROR : unable to get ip address for host ${DB_HOST}"
         echo "Did you set the DB_HOST environment variable ?"
-        exit 1
+        return 1
     fi
 
     return 0
@@ -24,7 +24,7 @@ hostname_connectivity() {
     if [ $? -ne 0 ]
     then
         echo "network connectivity to db is not ok"
-        exit 2
+        return 2
     fi
 
     return 0
@@ -58,7 +58,7 @@ auth_check() {
     if [ $? -ne 0 ]
     then
         echo "ERROR: authentication problem. Are DB_USER & DB_PASSWORD set ?"
-        exit 3
+        return 3
     fi
 
     return 0
@@ -74,8 +74,23 @@ existence_check() {
     if [ $? -ne 0 ]
     then
         echo "ERROR: database ${DB_NAME} not found. Is DB_NAME set ?"
-        exit 4
+        return 4
     fi
+
+    return 0
+}
+
+global_check() {
+    DB_HOST=$1
+    DB_USER=$2
+    DB_PASSWORD=$3
+    INIT_DB=$4
+
+    hostname_resolv $DB_HOST || exit $?
+    hostname_connectivity $DB_HOST || exit $?
+    test $INIT_DB == "true" && db_initialize $DB_HOST $DB_ROOT_PASSWORD || exit $?
+    auth_check $DB_HOST $DB_USER $DB_PASSWORD || exit $?
+    existence_check  $DB_HOST $DB_USER $DB_PASSWORD  || exit $?
 
     return 0
 }
