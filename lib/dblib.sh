@@ -48,7 +48,7 @@ db_initialize() {
 auth_check() {
     DB_HOST=$1
     DB_USER=$2
-    DB_USER=$3
+    DB_PASSWORD=$3
     # check credentials
     mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} -e"quit"
     if [ $? -ne 0 ]
