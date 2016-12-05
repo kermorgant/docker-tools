@@ -29,7 +29,7 @@ do
 key="$1"
 
 case $key in
-    up|build|log|stop|bash|install|update)
+    up|build|logs|stop|bash|install|update)
 	ACTION=$key
 	shift # past argument
 	;;
@@ -85,8 +85,8 @@ case "$ACTION" in
     bash)
 	command="$cmdprefix exec $service /bin/bash"
 	;;
-    log)
-	command="$cmdprefix log /bin/bash"
+    logs)
+	command="$cmdprefix logs /bin/bash"
 	;;
 esac
 
