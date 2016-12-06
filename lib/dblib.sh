@@ -90,7 +90,11 @@ global_check() {
 
     hostname_resolv $DB_HOST || exit $?
     hostname_connectivity $DB_HOST || exit $?
-    test $INIT_DB == "true" && db_initialize $DB_HOST $DB_ROOT_PASSWORD || exit $?
+
+    if [ $INIT_DB == "true" ]
+    then
+        db_initialize $DB_HOST $DB_ROOT_PASSWORD || exit $?
+    fi
 
     type mysql 2>/dev/null
     if [ $? == 0 ]
