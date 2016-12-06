@@ -97,9 +97,14 @@ global_check() {
        then
            auth_check $DB_HOST $DB_USER $DB_PASSWORD
            test $? != 0 && exit $?
+    fi
+    type mysqlshow 2>/dev/null
+    if [ $? == 0 ]
+       then
            existence_check  $DB_HOST $DB_USER $DB_PASSWORD $DB_NAME
            test $? != 0 && exit $?
     fi
+
 
     return 0
 }
